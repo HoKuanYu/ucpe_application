@@ -1,0 +1,3 @@
+GRANT ALL PRIVILEGES ON ccio.* TO 'admin'@'%';
+GRANT ALL PRIVILEGES ON ospos.* TO 'admin'@'%';
+FLUSH PRIVILEGES;

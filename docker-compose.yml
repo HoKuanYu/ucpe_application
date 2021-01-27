@@ -1,0 +1,61 @@
+version: '2'
+
+volumes:
+    uploads:
+        driver: local
+  
+services:
+    shinobi:
+        build:
+            context: Shinobi/
+            dockerfile: Dockerfile
+        links:
+            - mysql
+        ports:
+            - "8080:8080"
+        volumes:
+            - /dev/shm/Shinobi/streams:/dev/shm/streams
+            - $HOME/Shinobi/config:/config
+            - $HOME/Shinobi/customAutoLoad:/home/Shinobi/libs/customAutoLoad
+            - $HOME/Shinobi/videos:/home/Shinobi/videos
+            - $HOME/Shinobi/plugins:/home/Shinobi/plugins
+            - /etc/localtime:/etc/localtime
+            
+    ospos:
+        build:
+            context: ospos/
+            dockerfile: Dockerfile
+        links:
+            - mysql
+        ports:
+            - "80:80"
+        volumes:
+            - uploads:/app/public/uploads
+        environment:
+            - PHP_TIMEZONE=UTC
+            - MYSQL_USERNAME=admin
+            - MYSQL_PASSWORD=ucpe
+            - MYSQL_DB_NAME=ospos
+            - MYSQL_HOST_NAME=mysql
+
+    mysql:
+        image: mariadb:10.0.26
+        environment:
+            - MYSQL_ROOT_PASSWORD=pointofsale
+            - MYSQL_USER=admin
+            - MYSQL_PASSWORD=ucpe
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./sqls:/docker-entrypoint-initdb.d
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:4.9
+        container_name: phpmyadmin
+        restart: always
+        ports:
+            - 8000:80
+        links:
+            - mysql
+        environment:
+            - PMA_HOST=mysql
