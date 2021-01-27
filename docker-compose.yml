@@ -51,6 +51,7 @@ services:
             - "3306:3306"
         volumes:
             - ./sqls:/docker-entrypoint-initdb.d
+            - ./docker.cnf:/etc/mysql/conf.d/docker.cnf
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:4.9
