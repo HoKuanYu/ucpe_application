@@ -44,7 +44,7 @@ services:
         image: mariadb:10.0.26
         container_name: mysql
         environment:
-            - MYSQL_ROOT_PASSWORD=pointofsale
+            - MYSQL_ROOT_PASSWORD=ucpe
             - MYSQL_USER=admin
             - MYSQL_PASSWORD=ucpe
         ports:
