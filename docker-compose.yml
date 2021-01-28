@@ -10,6 +10,7 @@ services:
             context: Shinobi/
             dockerfile: Dockerfile
         container_name: shinobi
+        restart: always
         links:
             - mysql
         ports:
@@ -27,6 +28,7 @@ services:
             context: ospos/
             dockerfile: Dockerfile
         container_name: ospos
+        restart: always
         links:
             - mysql
         ports:
@@ -43,6 +45,7 @@ services:
     mysql:
         image: mariadb:10.0.26
         container_name: mysql
+        restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=ucpe
             - MYSQL_USER=admin
