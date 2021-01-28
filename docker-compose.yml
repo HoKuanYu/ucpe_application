@@ -52,7 +52,7 @@ services:
             - "3306:3306"
         volumes:
             - ./sqls/database.sql:/docker-entrypoint-initdb.d/database.sql
-            - ./sqls/framework.sql:/docker-entrypoint-initdb.d/framework.sql
+            - ./sqls/framwork.sql:/docker-entrypoint-initdb.d/framwork.sql
             - ./sqls/user.sql:/docker-entrypoint-initdb.d/user.sql
             - ./docker.cnf:/etc/mysql/conf.d/docker.cnf
 
