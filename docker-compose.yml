@@ -48,12 +48,12 @@ services:
         restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=ucpe
-            - MYSQL_USER=admin
-            - MYSQL_PASSWORD=ucpe
         ports:
             - "3306:3306"
         volumes:
-            - ./sqls:/docker-entrypoint-initdb.d
+            - ./sqls/database.sql:/docker-entrypoint-initdb.d/database.sql
+            - ./sqls/framework.sql:/docker-entrypoint-initdb.d/framework.sql
+            - ./sqls/user.sql:/docker-entrypoint-initdb.d/user.sql
             - ./docker.cnf:/etc/mysql/conf.d/docker.cnf
 
     phpmyadmin:
